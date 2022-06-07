@@ -31,7 +31,7 @@ public class ObjetoEnviaEmail {
 	
 	}
 	
-	public void enviarEmail() throws Exception {
+	public void enviarEmail(boolean enviarHtml) throws Exception {
 
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", "true");/* Autorização */
@@ -57,9 +57,17 @@ public class ObjetoEnviaEmail {
 		message.setRecipients(Message.RecipientType.TO, toUser);/* Email de destino */
 		message.setSubject(assuntoEmail);/* Assunto do e-mail */
 		message.setText(textoEmail);
+		
+		if(enviarHtml) {
+			message.setContent(textoEmail, "text/html; charset= utf-8");
+	
+		} else {
+			
+			message.setText(textoEmail);
+		}
 
 		Transport.send(message);
 		System.out.println("Email enviado com sucesso!!");
-
+       //enviar com a pagina teste.
 	}
 }
